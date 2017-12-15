@@ -1,0 +1,5 @@
+<root>
+    <item name='org.hibernate.Query R getSingleResult()'>
+        <annotation name='org.jetbrains.annotations.Nullable'/>
+    </item>
+</root>

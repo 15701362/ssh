@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-lazy-init="true">
+
+<context:component-scan base-package="com.sunliang.hibernate.demo"/>
+<context:property-placeholder location="classpath:database.properties"/>
+
+<!-- 配置数据源 数据源使用德鲁伊 -->
+<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+    <property name="driverClassName" value="${mysql.driver}"/>
+    <property name="url" value="${mysql.url}"/>
+    <property name="username" value="${mysql.username}"/>
+    <property name="password" value="${mysql.password}"/>
+</bean>
+<!-- ###########Spring与Hibernate整合  start########### -->
+<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" lazy-init="false">
+    <!-- 注入datasource，给sessionfactoryBean内setdatasource提供数据源 -->
+    <property name="dataSource" ref="dataSource"/>
+    <property name="hibernateProperties">
+        <props>
+            <!-- 指定数据库方言 -->
+            <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+            <!-- 将getCurrentSession()返回的session绑定到当前运行线程中 -->
+            <!--获取当前session并开启事务 -->
+            <prop key="current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
+            <prop key="show_sql">true</prop>
+            <!-- 数据库连接池的大小 -->
+            <prop key="connection.pool_size">${hibernate.connection.pool_size}</prop>
+            <!-- 每次从数据库中取出并放到JDBC的Statement中的记录条数。Fetch Size设的越大，读数据库的次数越少，速度越快，Fetch Size越小，读数据库的次数越多，速度越慢-->
+            <prop key="jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
+            <!--批量插入,删除和更新时每次操作的记录数。Batch Size越大，批量操作的向数据库发送Sql的次数越少，速度就越快，同样耗用内存就越大-->
+            <prop key="jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+            <!-- 开启二级缓存 ehcache -->
+            <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+            <!-- 开启查询的二级缓存  如果不需要就不设置-->
+            <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+            <!-- Hibernate4.0以上设置factory -->
+            <prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+            <!-- 二级缓存 ehcache的配置文件位置 -->
+            <prop key="hibernate.cache.provider_configuration_file_resource_path">ehcache.xml</prop>
+        </props>
+    </property>
+
+    <property name="packagesToScan">
+        <list>
+            <value>com.sunliang.hibernate.demo.entity</value>
+        </list>
+    </property>
+</bean>
+
+<!-- ###########Spring与Hibernate整合  end########### -->
+</beans>
