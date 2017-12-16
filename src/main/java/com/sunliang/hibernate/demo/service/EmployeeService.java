@@ -15,4 +15,29 @@ public interface EmployeeService {
      * @return  List<Employee>
      */
     List<Employee> findAll();
+
+    /**
+     * 根据empId 查询 Employee
+     * @param empId
+     * @return Employee
+     */
+    Employee findById(Long empId);
+
+    /**
+     * 更新
+     * @param employee
+     */
+    void merge(Employee employee);
+
+    /**
+     * 删除
+     * @param employee
+     */
+    void remove(Employee employee);
+
+    /**
+     * 添加
+     * @param employee
+     */
+    void persist(Employee employee);
 }

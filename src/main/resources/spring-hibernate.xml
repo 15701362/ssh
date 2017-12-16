@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
        default-lazy-init="true">
@@ -25,9 +27,10 @@
         <props>
             <!-- 指定数据库方言 -->
             <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-            <!-- 将getCurrentSession()返回的session绑定到当前运行线程中 -->
-            <!--获取当前session并开启事务 -->
-            <prop key="current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
+            <!-- 将getCurrentSession()返回的session绑定到当前运行线程中 不需要事务-->
+           <!-- <prop key="current_session_context_class">thread</prop>-->
+            <!--获取当前session并开启事务 需要事务 -->
+            <!--<prop key="current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>-->
             <prop key="show_sql">true</prop>
             <!-- 数据库连接池的大小 -->
             <prop key="connection.pool_size">${hibernate.connection.pool_size}</prop>
@@ -52,6 +55,11 @@
         </list>
     </property>
 </bean>
-
 <!-- ###########Spring与Hibernate整合  end########### -->
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

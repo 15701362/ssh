@@ -41,4 +41,10 @@ public class EmployeeDaoTest {
         employee.setEmpName("hahaha222");
         employeeDao.persist(employee);
     }
+
+    @Test
+    public void  testRemove(){
+        Employee employee = employeeDao.findById(7936L);
+        employeeDao.remove(employee);
+    }
 }
