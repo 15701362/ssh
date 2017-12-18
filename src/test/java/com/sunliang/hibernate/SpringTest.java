@@ -27,6 +27,9 @@ import java.util.UUID;
 public class SpringTest {
 
 
+    /**
+     * 查询所有
+     */
     @Test
     public void testFindAll(){
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-hibernate.xml");
@@ -37,6 +40,9 @@ public class SpringTest {
         }
     }
 
+    /**
+     * 添加
+     */
     @Test
     public void testPersist(){
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-hibernate.xml");
@@ -47,7 +53,7 @@ public class SpringTest {
 
         // 创建瞬时状态对象
         Employee emp = new Employee();
-        emp.setEmpNo("E-test");
+        emp.setEmpNo("E-test2");
         emp.setEmpName("Name==== " + UuidUtils.getUUID());
         emp.setJob("Coder");
         emp.setSalary(1000f);
@@ -59,19 +65,26 @@ public class SpringTest {
 
     }
 
+    /**
+     * 修改
+     */
     @Test
     public  void testMerge(){
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-hibernate.xml");
         EmployeeService employeeService = (EmployeeService) context.getBean("employeeServiceImpl");
-        Employee employee = employeeService.findById(7935L);
+        Employee employee = employeeService.findById(7937L);
         employee.setEmpName("wahahah===");
         employeeService.merge(employee);
     }
+
+    /**
+     * 删除
+     */
     @Test
     public void testRemove(){
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-hibernate.xml");
         EmployeeService employeeService = (EmployeeService) context.getBean("employeeServiceImpl");
-        Employee employee = employeeService.findById(7936L);
+        Employee employee = employeeService.findById(7937L);
         employeeService.remove(employee);
     }
 }

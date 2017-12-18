@@ -15,5 +15,9 @@ public interface BaseDao {
      */
     Session getSession();
 
+    /**
+     * 获得数据
+     * @return
+     */
     DataUtil getDataUtil();
 }

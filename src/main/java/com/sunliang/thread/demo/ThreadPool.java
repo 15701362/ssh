@@ -34,7 +34,7 @@ public final class ThreadPool {
     public PoolWorker[] workers;
 
     private ThreadPool() {
-        workers = new PoolWorker[5];
+        workers = new PoolWorker[worker_num];
         for (int i = 0; i < workers.length; i++) {
             workers[i] = new PoolWorker(i);
         }

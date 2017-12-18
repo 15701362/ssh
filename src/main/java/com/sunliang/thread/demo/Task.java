@@ -45,6 +45,7 @@ public abstract class Task implements Runnable {
      * 全部任务的核心 所以特别的业务逻辑运行之处
      *
      * @throws Exception
+     * @return Task[]
      */
     public abstract Task[] taskCore() throws Exception;
 
