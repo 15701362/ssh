@@ -14,10 +14,10 @@
 
 <!-- 配置数据源 数据源使用德鲁伊 -->
 <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-    <property name="driverClassName" value="${mysql.driver}"/>
-    <property name="url" value="${mysql.url}"/>
-    <property name="username" value="${mysql.username}"/>
-    <property name="password" value="${mysql.password}"/>
+    <property name="driverClassName" value="${oracle.driver}"/>
+    <property name="url" value="${oracle.url}"/>
+    <property name="username" value="${oracle.username}"/>
+    <property name="password" value="${oracle.password}"/>
 </bean>
 <!-- ###########Spring与Hibernate整合  start########### -->
 <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" lazy-init="false">
@@ -26,11 +26,7 @@
     <property name="hibernateProperties">
         <props>
             <!-- 指定数据库方言 -->
-            <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-            <!-- 将getCurrentSession()返回的session绑定到当前运行线程中 不需要事务-->
-           <!-- <prop key="current_session_context_class">thread</prop>-->
-            <!--获取当前session并开启事务 需要事务 -->
-            <!--<prop key="current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>-->
+            <prop key="hibernate.dialect">${hibernate.dialect.oracle}</prop>
             <prop key="show_sql">true</prop>
             <!-- 数据库连接池的大小 -->
             <prop key="connection.pool_size">${hibernate.connection.pool_size}</prop>
@@ -38,6 +34,8 @@
             <prop key="jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
             <!--批量插入,删除和更新时每次操作的记录数。Batch Size越大，批量操作的向数据库发送Sql的次数越少，速度就越快，同样耗用内存就越大-->
             <prop key="jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+            <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+            <prop key=" Hibernate.current_session_context_class">thread</prop>
             <!-- 开启二级缓存 ehcache -->
             <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
             <!-- 开启查询的二级缓存  如果不需要就不设置-->
@@ -49,11 +47,7 @@
         </props>
     </property>
 
-    <property name="packagesToScan">
-        <list>
-            <value>com.sunliang.hibernate.demo.entity</value>
-        </list>
-    </property>
+    <property name="packagesToScan" value="com.sunliang.hibernate.demo.entity"/>
 </bean>
 <!-- ###########Spring与Hibernate整合  end########### -->
     <!-- 配置事务管理器 -->

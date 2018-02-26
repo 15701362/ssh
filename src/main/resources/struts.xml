@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定Struts 2配置文件的DTD信息 -->
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- Struts 2配置文件的根元素 -->
+<struts>
+    <!-- 配置了系列常量 -->
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.devMode" value="true"/>
+
+    <package name="basePackage" extends="struts-default">
+
+    </package>
+
+    <package name="com.sunliang.hibernate.demo.web" extends="basePackage" namespace="/web">
+        <!-- 定义处理用户请求的Action  name的值与表单中的action对应-->
+        <action name="login" method="login" class="com.sunliang.hibernate.demo.web.LoginAction">
+            <!-- 为两个逻辑视图配置视图页面 -->
+            <result name="error">/WEB-INF/content/error.jsp</result>
+            <result name="success">/WEB-INF/content/welcome.jsp</result>
+        </action>
+    </package>
+</struts>
