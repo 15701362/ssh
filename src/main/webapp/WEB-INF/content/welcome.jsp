@@ -12,6 +12,7 @@
 </head>
 <body>
 欢迎您：${member.username}
-${sessionScope.get("member").username}
+
+<hr>
 </body>
 </html>
