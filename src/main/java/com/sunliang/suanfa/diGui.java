@@ -5,7 +5,7 @@ package com.sunliang.suanfa;
  * @desc 递归算法
  * @create 2017-12-18 15:34
  **/
-public class digui {
+public class diGui {
 
 
     public static int foo(int result,int endpoint){

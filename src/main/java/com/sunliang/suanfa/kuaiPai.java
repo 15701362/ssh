@@ -5,7 +5,7 @@ package com.sunliang.suanfa;
  * @desc 快速排序
  * @create 2017-12-18 16:41
  **/
-public class kuaipai {
+public class kuaiPai {
     static final int SIZE = 18;
 
     // 快速排序和冒泡排序思想相似，都是基于交换排序思想的。快速排序对冒泡排序法进行了改进，从而具有更高的执行效率额。
